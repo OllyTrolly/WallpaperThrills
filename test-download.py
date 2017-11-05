@@ -17,6 +17,7 @@ class TestDownloadDef(unittest.TestCase):
     def test_image_exists(self):
         urls = [r'http://barbarella.deadendthrills.com/imagestore/DET3/streetfighterv/large/kenishment.png']
 
+        WPTDownloader.create_directory()
         WPTDownloader.download(urls)
 
         unittest.assertTrue(os.path.isfile(config.download_location + r'/IMG1.png'))
