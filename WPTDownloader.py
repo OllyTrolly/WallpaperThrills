@@ -9,8 +9,9 @@ import config
 import re
 import os
 import errno
-import urllib.request
 import sys
+import urllib.request
+import urllib.error
 
 # Library packages
 from bs4 import BeautifulSoup
@@ -47,8 +48,11 @@ def get_urls(low_aspect, high_aspect):
     if config.shuffle:
         url = url + "/random/"
 
+    ua_spoof_request = urllib.request.Request(url, headers={'User-Agent', r'Mozilla/5.0 \
+    (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'})
+
     try:
-        html_text = urllib.request.urlopen(url).read()
+        html_text = urllib.request.urlopen(ua_spoof_request).read()
     except urllib.error.HTTPError as exception:
         sys.exit("ERROR - Could not get Dead End Thrills page for the following reason: " + format(exception))
 
