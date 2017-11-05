@@ -47,7 +47,11 @@ def get_urls(low_aspect, high_aspect):
     if config.shuffle:
         url = url + "/random/"
 
-    html_text = urllib.request.urlopen(url).read()
+    try:
+        html_text = urllib.request.urlopen(url).read()
+    except urllib.error.HTTPError as exception:
+        sys.exit("ERROR - Could not get Dead End Thrills page for the following reason: " + format(exception))
+
     soup = BeautifulSoup(html_text)
 
     # Find all 'a' tags with a href to a PNG
