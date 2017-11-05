@@ -56,7 +56,7 @@ def get_urls(low_aspect, high_aspect):
     except urllib.error.HTTPError as exception:
         sys.exit("ERROR - Could not get Dead End Thrills page for the following reason: " + format(exception))
 
-    soup = BeautifulSoup(html_text)
+    soup = BeautifulSoup(html_text, 'html.parser')
 
     # Find all 'a' tags with a href to a PNG
     for a in soup.find_all('a'):
@@ -91,4 +91,5 @@ def download(urls):
         urllib.request.urlretrieve(urls[x - 1], config.download_location + "/IMG" + str(x) + ".png")
 
 
-sys.exit(main())
+if __name__ == '__main__':
+    sys.exit(main())
